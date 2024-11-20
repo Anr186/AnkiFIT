@@ -1,13 +1,10 @@
-import { StatusBar } from "expo-status-bar";
-import { Text, View } from "react-native";
-import { Link } from "expo-router";
+import { Link, Redirect } from "expo-router";
+import { Text, View} from "react-native";
 
 export default function App() {
   return (
-      <View className = "flex-1 items-center justify-center bg-white">
-      <Text className = "text-7xl">Cosmodrome</Text>
-      <Link href = "/profile" style = {{color: 'blue'}}>Go to profile</Link>
-      <StatusBar style="auto"/>
-    </View>
-  );
-}
+      <View>
+        <Redirect href= "/indata"></Redirect>
+      </View>
+)}
+
