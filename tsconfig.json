@@ -14,5 +14,5 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "nativewind-env.d.ts"
-  ]
+, "app/(trainings)/_layout.js", "app/(trainings)/man/chest.js", "app/(tabs)/training.js"  ]
 }
