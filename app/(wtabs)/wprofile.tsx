@@ -13,7 +13,7 @@ interface User {
 
 const filePath = `${FileSystem.documentDirectory}user.json`;
 
-const Profile: React.FC = () => {
+const wProfile: React.FC = () => {
   const router = useRouter();
 
   const [user, setUser] = useState<User | null>(null);
@@ -168,4 +168,4 @@ const Profile: React.FC = () => {
   );
 };
 
-export default Profile;
+export default wProfile;
