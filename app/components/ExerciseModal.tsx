@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Modal, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, Modal, TouchableOpacity, StyleSheet, Image, Dimensions, SafeAreaView, StatusBar } from 'react-native';
 import { Exercise } from '../types';
 
 interface imageSource {
@@ -13,6 +13,8 @@ interface ExerciseModalProps {
   render_image: imageSource | null;
 }
 
+const { width, height } = Dimensions.get('window');
+
 const image2 = {
   uri: "https://raw.githubusercontent.com/Anr186/AnkiFIT_Source/56706f3bd04e18c3821f7e589129defb6fa39c66/image/Splash.svg",
 };
@@ -20,18 +22,38 @@ const image2 = {
 const ExerciseModal = ({ visible, exercise, onClose, render_image }: ExerciseModalProps) => (
   <Modal
     animationType="slide"
-    transparent={true}
+    transparent={false}
     visible={visible}
     onRequestClose={onClose}
   >
-    <View style={styles.modalContainer}>
-      <View style={styles.modalContent}>
+    <SafeAreaView style={styles.modalContainer}>
+      <StatusBar barStyle="dark-content" />
+      <View style={styles.header}>
         <Text style={styles.modalTitle}>{exercise?.title}</Text>
-        <Image source={image2} style={styles.image} resizeMode="contain"></Image>
-        <Text className="text-center text-xl text-black">Ank1FIT</Text>
+        <TouchableOpacity
+          style={styles.closeButton}
+          onPress={onClose}
+        >
+          <Text style={styles.closeButtonText}>✕</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.content}>
+        <View style={styles.imageContainer}>
+          <Image 
+            source={image2} 
+            style={styles.image} 
+            resizeMode="contain"
+          />
+          <Text style={styles.brandText}>Ank1FIT</Text>
+        </View>
         
-        <Text style={styles.modalDescription}>{exercise?.description}</Text>
-        
+        <View style={styles.descriptionContainer}>
+          <Text style={styles.modalDescription}>{exercise?.description}</Text>
+        </View>
+      </View>
+
+      <View style={styles.footer}>
         <TouchableOpacity
           style={styles.modalButton}
           onPress={onClose}
@@ -39,49 +61,93 @@ const ExerciseModal = ({ visible, exercise, onClose, render_image }: ExerciseMod
           <Text style={styles.modalButtonText}>Закрыть</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   </Modal>
 );
 
 const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  modalContent: {
     backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 20,
-    width: '80%',
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    padding: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+    backgroundColor: 'white',
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  content: {
+    flex: 1,
   },
   modalTitle: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 12,
+    flex: 1,
+  },
+  closeButton: {
+    width: 36,
+    height: 36,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 18,
+    backgroundColor: '#f0f0f0',
+    marginLeft: 16,
+  },
+  closeButtonText: {
+    fontSize: 20,
+    color: '#666',
+  },
+  imageContainer: {
+    alignItems: 'center',
+    padding: 20,
+    backgroundColor: '#f8f8f8',
+  },
+  image: {
+    width: width,
+    height: height * 0.4,
+    marginBottom: 16,
+  },
+  brandText: {
+    fontSize: 24,
+    fontWeight: '600',
+    color: '#333',
+    marginTop: 8,
+  },
+  descriptionContainer: {
+    padding: 20,
+    flex: 1,
   },
   modalDescription: {
-    fontSize: 16,
-    textAlign: 'center',
-    marginBottom: 20,
+    fontSize: 18,
+    lineHeight: 26,
+    color: '#333',
+    textAlign: 'left',
+  },
+  footer: {
+    padding: 20,
+    borderTopWidth: 1,
+    borderTopColor: '#eee',
+    backgroundColor: 'white',
   },
   modalButton: {
     backgroundColor: '#007AFF',
     paddingHorizontal: 24,
-    paddingVertical: 12,
-    borderRadius: 8,
+    paddingVertical: 16,
+    borderRadius: 12,
+    alignItems: 'center',
   },
   modalButtonText: {
     color: 'white',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '600',
-  },
-  image: {
-    width: 512,
-    height: 512,
-    marginBottom: 16,
   },
 });
 

@@ -20,10 +20,11 @@ const TabsLayout = () => {
   return (
   <>
     <Tabs>
-    <Tabs.Screen name="training" options={{title: "Тренировки", headerShown: false, tabBarIcon: () => <TabIcon icon={icons.home} name="Тренировки" />}}/>
-    <Tabs.Screen name="food" options={{title: "Еда", headerShown: false, tabBarIcon: () => <TabIcon icon={icons.profile} name="Еда" />}}/>
-    <Tabs.Screen name="profile" options={{title: "Профиль", headerShown: false, tabBarIcon: () => <TabIcon icon={icons.home} name="Профиль" />}}/>
-    <Tabs.Screen name="settings" options={{title: "Настройки", headerShown: false, tabBarIcon: () => <TabIcon icon={icons.profile} name="Настройки" />}}/>
+    <Tabs.Screen name="training" options={{title: "", headerShown: false, tabBarIcon: () => <TabIcon icon={icons.home} name="Тренировки" />}}/>
+    <Tabs.Screen name="food" options={{title: "", headerShown: false, tabBarIcon: () => <TabIcon icon={icons.profile} name="Еда" />}}/>
+    <Tabs.Screen name="chatbot" options={{title: "", headerShown: false, tabBarIcon: () => <TabIcon icon={icons.profile} name="" />}}/>
+    <Tabs.Screen name="profile" options={{title: "", headerShown: false, tabBarIcon: () => <TabIcon icon={icons.home} name="Профиль" />}}/>
+    <Tabs.Screen name="settings" options={{title: "", headerShown: false, tabBarIcon: () => <TabIcon icon={icons.profile} name="Настройки" />}}/>
     </Tabs>
   </>
   )
