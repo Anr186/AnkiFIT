@@ -6,6 +6,7 @@ import * as FileSystem from 'expo-file-system';
 interface User {
   id: string;
   name: string;
+  age: string;
   weight: string;
   height: string;
   gender: string;
@@ -16,6 +17,7 @@ const filePath = `${FileSystem.documentDirectory}user.json`;
 const Indata: React.FC = () => {
   const router = useRouter();
   const [name, setName] = useState<string>('');
+  const [age, setAge] = useState<string>('');
   const [weight, setWeight] = useState<string>('');
   const [height, setHeight] = useState<string>('');
   const [gender, setGender] = useState<string>(''); 
@@ -24,6 +26,7 @@ const Indata: React.FC = () => {
     const updatedUser: User = {
       id: Date.now().toString(),
       name,
+      age,
       weight,
       height,
       gender,
@@ -41,10 +44,16 @@ const Indata: React.FC = () => {
 
   return (
     <View style={{ padding: 20 }}>
-      <TextInput
-        placeholder="Имя"
-        value={name}
-        onChangeText={setName}
+      <TextInput placeholder="Имя" value={name} onChangeText={setName} 
+      style={{
+          borderWidth: 1,
+          borderColor: '#ccc',
+          borderRadius: 5,
+          padding: 10,
+          marginBottom: 10,
+        }}
+      />
+      <TextInput placeholder="Возраст" value={age} onChangeText={setAge} keyboardType="numeric"
         style={{
           borderWidth: 1,
           borderColor: '#ccc',
@@ -53,11 +62,7 @@ const Indata: React.FC = () => {
           marginBottom: 10,
         }}
       />
-      <TextInput
-        placeholder="Вес"
-        value={weight}
-        onChangeText={setWeight}
-        keyboardType="numeric"
+      <TextInput placeholder="Вес"value={weight} onChangeText={setWeight} keyboardType="numeric"
         style={{
           borderWidth: 1,
           borderColor: '#ccc',
@@ -66,11 +71,7 @@ const Indata: React.FC = () => {
           marginBottom: 10,
         }}
       />
-      <TextInput
-        placeholder="Рост"
-        value={height}
-        onChangeText={setHeight}
-        keyboardType="numeric"
+      <TextInput placeholder="Рост" value={height} onChangeText={setHeight}keyboardType="numeric"
         style={{
           borderWidth: 1,
           borderColor: '#ccc',
@@ -81,8 +82,7 @@ const Indata: React.FC = () => {
       />
 
       <View style={{ flexDirection: 'row', marginBottom: 20 }}>
-        <TouchableOpacity
-          onPress={() => setGender('male')}
+        <TouchableOpacity onPress={() => setGender('male')}
           style={{
             flexDirection: 'row',
             alignItems: 'center',
@@ -103,13 +103,7 @@ const Indata: React.FC = () => {
           <Text>Мужской</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => setGender('female')}
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        >
+        <TouchableOpacity onPress={() => setGender('female')} style={{ flexDirection: 'row', alignItems: 'center',}}>
           <View
             style={{
               height: 20,
@@ -126,7 +120,7 @@ const Indata: React.FC = () => {
       </View>
 
       <Button
-        title="Сохранить пользователя"
+        title="Продолжить"
         onPress={saveUser}
       />
     </View>

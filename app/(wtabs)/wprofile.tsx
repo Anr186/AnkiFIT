@@ -6,6 +6,7 @@ import * as FileSystem from 'expo-file-system';
 interface User {
   id: string;
   name: string;
+  age: string;
   weight: string;
   height: string;
   gender: string;
@@ -19,6 +20,7 @@ const wProfile: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const [editing, setEditing] = useState<boolean>(false);
   const [name, setName] = useState<string>('');
+  const [age, setAge] = useState<string>('');
   const [weight, setWeight] = useState<string>('');
   const [height, setHeight] = useState<string>('');
   const [gender, setGender] = useState<string>('male');
@@ -35,6 +37,7 @@ const wProfile: React.FC = () => {
       const existingUser = JSON.parse(jsonData) as User;
       setUser(existingUser);
       setName(existingUser.name);
+      setAge(existingUser.age);
       setWeight(existingUser.weight);
       setHeight(existingUser.height);
       setGender(existingUser.gender);
@@ -45,6 +48,7 @@ const wProfile: React.FC = () => {
     const updatedUser: User = {
       id: Date.now().toString(),
       name,
+      age,
       weight,
       height,
       gender,
@@ -72,6 +76,18 @@ const wProfile: React.FC = () => {
             placeholder="Имя"
             value={name}
             onChangeText={setName}
+            style={{
+              borderWidth: 1,
+              borderColor: '#ccc',
+              borderRadius: 5,
+              padding: 10,
+              marginBottom: 10,
+            }}
+          />
+          <TextInput
+            placeholder="Возраст"
+            value={age}
+            onChangeText={setAge}
             style={{
               borderWidth: 1,
               borderColor: '#ccc',
@@ -158,6 +174,7 @@ const wProfile: React.FC = () => {
         <>
           <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10 }}>Профиль</Text>
           <Text>Имя: {user?.name}</Text>
+          <Text>Возраст: {user?.age}</Text>
           <Text>Вес: {user?.weight} кг</Text>
           <Text>Рост: {user?.height} см</Text>
           <Text>Пол: {user?.gender === 'male' ? 'Мужской' : 'Женский'}</Text>
