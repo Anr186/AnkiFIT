@@ -15,6 +15,20 @@ export default function FoodLayout() {
       },
     }}>
       <Stack.Screen 
+        name="woman/snack" 
+        options={{
+          title: "Перекус",
+          headerShown: true,
+        }} 
+      />
+      <Stack.Screen 
+        name="woman/breakfast" 
+        options={{
+          title: "ПП завтрак",
+          headerShown: true,
+        }} 
+      />
+      <Stack.Screen 
         name="man/breakfast" 
         options={{
           title: "Полезный завтрак",

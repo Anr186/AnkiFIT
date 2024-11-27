@@ -95,7 +95,7 @@ const Training = () => {
       {/* Display saved plan with edit button */}
       <View className="mb-4 p-4 bg-blue-100 rounded-lg relative">
         <Text className="text-lg font-bold mb-2">
-          План на {format(selectedDate, 'dd.MM.yyyy')}:
+          План на {format(selectedDate, 'dd.MM')}
         </Text>
         {isEditing ? (
           <>

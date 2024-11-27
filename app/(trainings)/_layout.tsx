@@ -15,6 +15,20 @@ export default function TrainingsLayout() {
       },
     }}>
       <Stack.Screen 
+        name="woman/legs" 
+        options={{
+          title: "Ноги",
+          headerShown: true,
+        }} 
+      />
+      <Stack.Screen 
+        name="woman/abs" 
+        options={{
+          title: "Пресс",
+          headerShown: true,
+        }} 
+      />
+      <Stack.Screen 
         name="man/hands" 
         options={{
           title: "Упражнения для рук",

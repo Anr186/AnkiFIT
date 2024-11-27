@@ -1,7 +1,8 @@
-import { Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
+import { Text, View, Button, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import React, { useState, useEffect } from "react";
 import { useRouter } from 'expo-router';
 import * as FileSystem from 'expo-file-system';
+import { format, parseISO } from 'date-fns';
 
 interface User {
   id: string;
@@ -12,9 +13,15 @@ interface User {
   gender: string;
 }
 
-const filePath = `${FileSystem.documentDirectory}user.json`;
+interface DailyPlan {
+  date: string;
+  plan: string;
+}
 
-const wProfile: React.FC = () => {
+const userFilePath = `${FileSystem.documentDirectory}user.json`;
+const plansFilePath = `${FileSystem.documentDirectory}data.json`;
+
+const Profile: React.FC = () => {
   const router = useRouter();
 
   const [user, setUser] = useState<User | null>(null);
@@ -24,16 +31,18 @@ const wProfile: React.FC = () => {
   const [weight, setWeight] = useState<string>('');
   const [height, setHeight] = useState<string>('');
   const [gender, setGender] = useState<string>('male');
+  const [plans, setPlans] = useState<DailyPlan[]>([]);
 
   useEffect(() => {
     loadUser();
+    loadPlans();
   }, []);
 
   const loadUser = async () => {
-    const fileInfo = await FileSystem.getInfoAsync(filePath);
+    const fileInfo = await FileSystem.getInfoAsync(userFilePath);
 
     if (fileInfo.exists) {
-      const jsonData = await FileSystem.readAsStringAsync(filePath);
+      const jsonData = await FileSystem.readAsStringAsync(userFilePath);
       const existingUser = JSON.parse(jsonData) as User;
       setUser(existingUser);
       setName(existingUser.name);
@@ -41,6 +50,14 @@ const wProfile: React.FC = () => {
       setWeight(existingUser.weight);
       setHeight(existingUser.height);
       setGender(existingUser.gender);
+    }
+  };
+
+  const loadPlans = async () => {
+    const fileInfo = await FileSystem.getInfoAsync(plansFilePath);
+    if (fileInfo.exists) {
+      const jsonData = await FileSystem.readAsStringAsync(plansFilePath);
+      setPlans(JSON.parse(jsonData));
     }
   };
 
@@ -55,7 +72,7 @@ const wProfile: React.FC = () => {
     };
 
     setUser(updatedUser);
-    await FileSystem.writeAsStringAsync(filePath, JSON.stringify(updatedUser));
+    await FileSystem.writeAsStringAsync(userFilePath, JSON.stringify(updatedUser));
     setEditing(false);
   };
 
@@ -69,7 +86,7 @@ const wProfile: React.FC = () => {
   }
 
   return (
-    <View style={{ padding: 20 }}>
+    <ScrollView style={{ padding: 20 }}>
       {editing ? (
         <>
           <TextInput
@@ -179,10 +196,21 @@ const wProfile: React.FC = () => {
           <Text>Рост: {user?.height} см</Text>
           <Text>Пол: {user?.gender === 'male' ? 'Мужской' : 'Женский'}</Text>
           <Button title="Редактировать" onPress={() => setEditing(true)} />
+
+          <Text style={{ fontSize: 18, fontWeight: 'bold', marginTop: 20, marginBottom: 10 }}>Планы тренировок</Text>
+          {plans
+            .sort((a, b) => parseISO(a.date).getTime() - parseISO(b.date).getTime())
+            .map((plan, index) => (
+            <View key={index} style={{ marginBottom: 10, padding: 10, backgroundColor: '#f0f0f0', borderRadius: 5 }}>
+              <Text style={{ fontWeight: 'bold' }}>{format(new Date(plan.date), 'dd.MM')}</Text>
+              <Text>{plan.plan}</Text>
+            </View>
+          ))}
         </>
       )}
-    </View>
+    </ScrollView>
   );
 };
 
-export default wProfile;
+export default Profile;
+
