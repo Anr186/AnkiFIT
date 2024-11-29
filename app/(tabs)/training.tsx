@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, TouchableOpacity, ScrollView, TextInput, Button } from 'react-native'
+import { Text, View, TouchableOpacity, ScrollView, TextInput, Button, StyleSheet, Image } from 'react-native'
 import { useRouter } from 'expo-router'
 import { startOfWeek, endOfWeek, eachDayOfInterval, format, isSameDay } from 'date-fns'
 import * as FileSystem from 'expo-file-system'
@@ -121,24 +121,35 @@ const Training = () => {
           </>
         )}
       </View>
-
       <TouchableOpacity 
-        onPress={() => router.push("/man/chest")}
-        className="mb-4 p-8 rounded-lg bg-blue-500 shadow-md"
-      >
-        <Text className="text-white text-xl font-bold mb-2 text-center">
+          onPress={() => router.push("../man/chest")}
+          className="mb-4 rounded-xl overflow-hidden"
+        >
+          <Image
+           source={require('../../assets/images/chest1.png')}
+            className="w-full h-32"
+            resizeMode="cover"
+          />
+          <View className="absolute inset-0 bg-black opacity-30" />
+          <Text className="absolute bottom-2 left-2 text-white text-xl font-bold">
           Упражнения для груди
-        </Text>
-      </TouchableOpacity>
+          </Text>
+        </TouchableOpacity>
 
       <TouchableOpacity 
-        onPress={() => router.push("/man/hands")}
-        className="mb-4 p-8 rounded-lg bg-blue-500 shadow-md"
-      >
-        <Text className="text-white text-xl font-bold mb-2 text-center">
+          onPress={() => router.push("../man/hands")}
+          className="mb-4 rounded-xl overflow-hidden"
+        >
+          <Image
+           source={require('../../assets/images/hands1.png')}
+            className="w-full h-32"
+            resizeMode="cover"
+          />
+          <View className="absolute inset-0 bg-black opacity-30" />
+          <Text className="absolute bottom-2 left-2 text-white text-xl font-bold">
           Упражнения для рук
-        </Text>
-      </TouchableOpacity>
+          </Text>
+        </TouchableOpacity>
     </ScrollView>
   )
 }

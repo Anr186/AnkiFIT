@@ -1,4 +1,4 @@
-import { Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import React, { useState } from "react";
 import { useRouter } from 'expo-router';
 import * as FileSystem from 'expo-file-system';
@@ -20,7 +20,7 @@ const Indata: React.FC = () => {
   const [age, setAge] = useState<string>('');
   const [weight, setWeight] = useState<string>('');
   const [height, setHeight] = useState<string>('');
-  const [gender, setGender] = useState<string>(''); 
+  const [gender, setGender] = useState<string>('');
 
   const saveUser = async () => {
     const updatedUser: User = {
@@ -39,92 +39,150 @@ const Indata: React.FC = () => {
     } else if (gender === 'female') {
       router.replace('/wtraining');
     }
-
   };
 
   return (
-    <View style={{ padding: 20 }}>
-      <TextInput placeholder="Имя" value={name} onChangeText={setName} 
-      style={{
-          borderWidth: 1,
-          borderColor: '#ccc',
-          borderRadius: 5,
-          padding: 10,
-          marginBottom: 10,
-        }}
-      />
-      <TextInput placeholder="Возраст" value={age} onChangeText={setAge} keyboardType="numeric"
-        style={{
-          borderWidth: 1,
-          borderColor: '#ccc',
-          borderRadius: 5,
-          padding: 10,
-          marginBottom: 10,
-        }}
-      />
-      <TextInput placeholder="Вес"value={weight} onChangeText={setWeight} keyboardType="numeric"
-        style={{
-          borderWidth: 1,
-          borderColor: '#ccc',
-          borderRadius: 5,
-          padding: 10,
-          marginBottom: 10,
-        }}
-      />
-      <TextInput placeholder="Рост" value={height} onChangeText={setHeight}keyboardType="numeric"
-        style={{
-          borderWidth: 1,
-          borderColor: '#ccc',
-          borderRadius: 5,
-          padding: 10,
-          marginBottom: 10,
-        }}
-      />
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={{ flex: 1 }}>
+        <View style={{ flex: 1, padding: 20 }}>
+          <Text style={{ 
+            fontSize: 28, 
+            fontWeight: '600',
+            marginBottom: 16,
+            textAlign: 'center'
+          }}>
+            Расскажите немного о себе
+          </Text>
+          
+          <Text style={{ 
+            fontSize: 16, 
+            color: '#666',
+            marginBottom: 32,
+            textAlign: 'center',
+            paddingHorizontal: 20
+          }}>
+            Эта информация необходима, чтобы обеспечить правильную персонализацию в приложении AnkiFIT.
+          </Text>
 
-      <View style={{ flexDirection: 'row', marginBottom: 20 }}>
-        <TouchableOpacity onPress={() => setGender('male')}
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginRight: 20,
-          }}
-        >
-          <View
+          <View style={{
+            backgroundColor: '#f0f0f0',
+            borderRadius: 20,
+            padding: 20,
+            marginBottom: 32
+          }}>
+            <View style={{ marginBottom: 16 }}>
+              <Text style={{ fontSize: 18, fontWeight: '500', marginBottom: 8 }}>Имя:</Text>
+              <TextInput
+                placeholder="Как вас зовут?"
+                value={name}
+                onChangeText={setName}
+                style={{
+                  fontSize: 16,
+                  color: '#666',
+                  paddingVertical: 4
+                }}
+              />
+            </View>
+
+            <View style={{ marginBottom: 16 }}>
+              <Text style={{ fontSize: 18, fontWeight: '500', marginBottom: 8 }}>Возраст:</Text>
+              <TextInput
+                placeholder="Сколько вам лет?"
+                value={age}
+                onChangeText={setAge}
+                keyboardType="numeric"
+                style={{
+                  fontSize: 16,
+                  color: '#666',
+                  paddingVertical: 4
+                }}
+              />
+            </View>
+
+            <View style={{ marginBottom: 16 }}>
+              <Text style={{ fontSize: 18, fontWeight: '500', marginBottom: 8 }}>Рост:</Text>
+              <TextInput
+                placeholder="Какого вы роста?"
+                value={height}
+                onChangeText={setHeight}
+                keyboardType="numeric"
+                style={{
+                  fontSize: 16,
+                  color: '#666',
+                  paddingVertical: 4
+                }}
+              />
+            </View>
+
+            <View style={{ marginBottom: 16 }}>
+              <Text style={{ fontSize: 18, fontWeight: '500', marginBottom: 8 }}>Вес:</Text>
+              <TextInput
+                placeholder="не указан."
+                value={weight}
+                onChangeText={setWeight}
+                keyboardType="numeric"
+                style={{
+                  fontSize: 16,
+                  color: '#666',
+                  paddingVertical: 4
+                }}
+              />
+            </View>
+          </View>
+
+          <View style={{ marginBottom: 32 }}>
+            <Text style={{ fontSize: 18, fontWeight: '500', marginBottom: 16 }}>Пол:</Text>
+            <View style={{ flexDirection: 'row', justifyContent: 'flex-start', gap: 32 }}>
+              <TouchableOpacity 
+                onPress={() => setGender('male')}
+                style={{ flexDirection: 'row', alignItems: 'center' }}
+              >
+                <View style={{
+                  width: 24,
+                  height: 24,
+                  borderRadius: 12,
+                  borderWidth: 2,
+                  borderColor: '#000',
+                  backgroundColor: gender === 'male' ? '#000' : '#fff',
+                  marginRight: 8
+                }} />
+                <Text style={{ fontSize: 16 }}>Мужской</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity 
+                onPress={() => setGender('female')}
+                style={{ flexDirection: 'row', alignItems: 'center' }}
+              >
+                <View style={{
+                  width: 24,
+                  height: 24,
+                  borderRadius: 12,
+                  borderWidth: 2,
+                  borderColor: '#000',
+                  backgroundColor: gender === 'female' ? '#000' : '#fff',
+                  marginRight: 8
+                }} />
+                <Text style={{ fontSize: 16 }}>Женский</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <TouchableOpacity
+            onPress={saveUser}
             style={{
-              height: 20,
-              width: 20,
-              borderRadius: 10,
-              borderWidth: 2,
-              borderColor: '#000',
-              backgroundColor: gender === 'male' ? '#000' : '#fff',
-              marginRight: 5,
+              backgroundColor: '#f0f0f0',
+              paddingVertical: 16,
+              borderRadius: 16,
+              alignItems: 'center'
             }}
-          />
-          <Text>Мужской</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => setGender('female')} style={{ flexDirection: 'row', alignItems: 'center',}}>
-          <View
-            style={{
-              height: 20,
-              width: 20,
-              borderRadius: 10,
-              borderWidth: 2,
-              borderColor: '#000',
-              backgroundColor: gender === 'female' ? '#000' : '#fff',
-              marginRight: 5,
-            }}
-          />
-          <Text>Женский</Text>
-        </TouchableOpacity>
-      </View>
-
-      <Button
-        title="Продолжить"
-        onPress={saveUser}
-      />
-    </View>
+          >
+            <Text style={{ fontSize: 16, fontWeight: '500' }}>Готово</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 export default Indata;
+

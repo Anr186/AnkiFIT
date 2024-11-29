@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ScrollView, SafeAreaView, Image } from 'react-native';
 import { useRouter } from 'expo-router';
 import React, { useState, useMemo, useRef } from 'react';
 import { Ionicons } from '@expo/vector-icons';
@@ -152,15 +152,21 @@ const Chatbot = () => {
     <SafeAreaView className="flex-1">
       <View className="bg-blue-950 p-4 flex-row justify-between items-center">
         <Text className="text-white text-2xl font-bold">
-          Бот Anki
+          Бот Анки
         </Text>
-        <TouchableOpacity onPress={toggleSearchMode}>
-          <Ionicons 
-            name={isSearchMode ? "close" : "search"} 
-            size={24} 
-            color="white" 
+        <View className="flex-row items-center">
+          <Image
+            source={require('../../assets/images/SplashScreen.png')}
+            style={{ width: 40, height: 40, borderRadius: 20, marginRight: 15 }}
           />
-        </TouchableOpacity>
+          <TouchableOpacity onPress={toggleSearchMode}>
+            <Ionicons 
+              name={isSearchMode ? "close" : "search"} 
+              size={24} 
+              color="white" 
+            />
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View className="flex-1 p-4">

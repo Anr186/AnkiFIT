@@ -3,9 +3,8 @@ import { ImageBackground, Text, View, StatusBar } from "react-native";
 import { useRouter } from "expo-router";
 import * as FileSystem from "expo-file-system";
 
-const image = {
-  uri: "https://github.com/Anr186/AnkiFIT_Source/blob/master/image/SplashScreen.png?raw=true",
-};
+
+const image = require("../assets/images/SplashScreen.png");
 
 const filePath = `${FileSystem.documentDirectory}user.json`;
 
@@ -25,24 +24,23 @@ const SplashScreen: React.FC = () => {
           router.replace("/training");
         } else if (userData?.gender === "female") {
           router.replace("/wtraining");
-        } 
-      } 
+        }
+      }
     };
+
     setTimeout(() => {
       setIsLoaded(true);
       checkUserData();
     }); 
   }, []);
-
   return (
     <View style={{ flex: 1 }}>
       <StatusBar hidden />
       <ImageBackground
-        source={image}
+        source={image} 
         style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         resizeMode="cover"
       >
-        {isLoaded && <Text style={{ textAlign: "center", fontSize: 36, color: "white" }}>Ank1FIT</Text>}
       </ImageBackground>
     </View>
   );

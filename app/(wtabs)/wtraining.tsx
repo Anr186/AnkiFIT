@@ -78,13 +78,13 @@ const wTraining = () => {
           >
             <Text className={`text-xs ${
               isSameDay(date, selectedDate) ? 'text-white' : 
-              isSameDay(date, new Date()) ? 'text-blue-800' : 'text-gray-600'
+              isSameDay(date, new Date()) ? 'text-blue-600' : 'text-gray-600'
             }`}>
               {format(date, 'EEE')}
             </Text>
             <Text className={`text-sm ${
               isSameDay(date, selectedDate) ? 'text-white font-bold' : 
-              isSameDay(date, new Date()) ? 'text-blue-800 font-bold' : ''
+              isSameDay(date, new Date()) ? 'text-blue-600 font-bold' : ''
             }`}>
               {format(date, 'd')}
             </Text>
