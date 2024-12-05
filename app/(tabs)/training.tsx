@@ -17,6 +17,7 @@ const Training = () => {
   const [dailyPlan, setDailyPlan] = useState('')
   const [plans, setPlans] = useState<DailyPlan[]>([])
   const [isEditing, setIsEditing] = useState(false)
+  const [trainingTip, setTrainingTip] = useState<string | null>(null);
 
   const getWeekDays = (date: Date) => {
     const start = startOfWeek(date, { weekStartsOn: 1 })
@@ -31,12 +32,18 @@ const Training = () => {
 
   useEffect(() => {
     loadPlans();
+    const intervalId = setInterval(changeTrainingTip, 10000);
+    return () => clearInterval(intervalId);
   }, [])
 
   useEffect(() => {
     setDailyPlan(getPlanForDate(selectedDate));
     setIsEditing(false);
   }, [selectedDate, plans])
+
+  useEffect(() => {
+    setTrainingTip(getRandomTrainingTip());
+  }, []);
 
   const loadPlans = async () => {
     const filePath = `${FileSystem.documentDirectory}data.json`
@@ -59,8 +66,23 @@ const Training = () => {
     setIsEditing(false)
   }
 
+  const getRandomTrainingTip = () => {
+    const tips = [
+      "Не забывайте про разминку перед тренировкой!",
+      "Пейте достаточно воды во время тренировки.",
+      "Следите за правильной техникой выполнения упражнений.",
+      "Отдых между подходами так же важен, как и сами упражнения.",
+      "Не пренебрегайте растяжкой после тренировки."
+    ];
+    return tips[Math.floor(Math.random() * tips.length)];
+  };
+
+  const changeTrainingTip = () => {
+    setTrainingTip(getRandomTrainingTip());
+  };
+
   return (
-    <ScrollView className="flex-1 p-4">
+    <ScrollView style={{ flex: 1 }} className="p-4">
       <Text className="text-xl mb-4 text-center">Тренировки</Text>
       
       {/* Weekly Calendar */}
@@ -150,6 +172,54 @@ const Training = () => {
           Упражнения для рук
           </Text>
         </TouchableOpacity>
+
+      {/* Floating Chatbot Button */}
+      <TouchableOpacity 
+  onPress={() => {
+    router.push("../chatbot")
+  }}
+  style={{
+    position: 'absolute',
+    bottom: -260,
+    right: 0,
+    width: 60,
+    height: 60,
+    borderRadius: 35,
+    overflow: 'hidden',
+    elevation: 5,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  }}
+>
+  <Image
+    source={require('../../assets/images/SplashScreen.png')}
+    style={{
+      width: '100%',
+      height: '100%',
+    }}
+    resizeMode="cover"
+  />
+</TouchableOpacity>
+
+{/* Training Tip Display */}
+{(
+  <View style={{
+    position: 'absolute',
+    bottom: -200,
+    right: 40,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    padding: 10,
+    borderRadius: 10,
+    maxWidth: 200,
+  }}>
+    <Text style={{ color: 'white' }}>{trainingTip}</Text>
+  </View>
+)}
     </ScrollView>
   )
 }

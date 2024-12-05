@@ -15,9 +15,7 @@ interface ExerciseModalProps {
 
 const { width, height } = Dimensions.get('window');
 
-const image2 = {
-  uri: "https://raw.githubusercontent.com/Anr186/AnkiFIT_Source/56706f3bd04e18c3821f7e589129defb6fa39c66/image/Splash.svg",
-};
+const image2 = require("../../assets/images/chestlover.png");
 
 const ExerciseModal = ({ visible, exercise, onClose, render_image }: ExerciseModalProps) => (
   <Modal
@@ -43,7 +41,7 @@ const ExerciseModal = ({ visible, exercise, onClose, render_image }: ExerciseMod
           <Image 
             source={image2} 
             style={styles.image} 
-            resizeMode="contain"
+            resizeMode="cover"
           />
           <Text style={styles.brandText}>Ank1FIT</Text>
         </View>
