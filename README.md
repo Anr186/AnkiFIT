@@ -1,6 +1,6 @@
 # AnkiFIT: Твой личный помощник в спорте
 
-<p align="center">
+<p align="left">
   <img src="/assets/imgr/first.png" width="300" alt="Логотип AnkiFIT">
 </p>
 
@@ -22,8 +22,6 @@ AnkiFIT — мобильное приложение для здорового о
 - ♿ **Доступность** - адаптивный интерфейс
 
 ## Интерфейс приложения
-<p align="center">
-  <img src="/assets/imgr/logo1.png" width="200" style="margin: 0 10px;">
-  <img src="/assets/imgr/logo2.png" width="200" style="margin: 0 10px;">
-  <img src="/assets/imgr/logo3.png" width="200" style="margin: 0 10px;">
-</p>
+![](/assets/imgr/logo1.png)
+![](/assets/imgr/logo2.png)
+![](/assets/imgr/logo3.png)
